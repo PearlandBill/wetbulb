@@ -13,9 +13,15 @@
 
 import math
 
-def calcwb(temp: float, rh: int) -> float:
+def calcwb(temp: float, rh: int, num_digits: int, is_celsius: bool) -> float:
     #Convert temp to Celsius
-    tempC = (temp - 32) * 5/9
+
+    # assume that the temp is in celsius
+    tempC = temp
+
+    # check for celsius
+    if is_celsius == False:
+        tempC = (temp - 32) * 5/9
 
     #Calc wet bulb
     atan1 = math.atan(0.151977 * math.pow((rh + 8.313659), 1/2))
@@ -26,18 +32,19 @@ def calcwb(temp: float, rh: int) -> float:
 
     wb = tempC * atan1 + atan2 - atan3 + factor1 * atan4 - 4.686035
 
-    #convert wb to farenheit
-    wbF = (wb * 9/5) + 32
+    #convert wb to farenheit?
+    if is_celsius == False:
+        wb = (wb * 9/5) + 32
 
-    # round wbF
-    wbF = round(wbF)
+    # round wb
+    wbF = round(wb, num_digits)
 
     return wbF
 
-t = 86
-r = 70
+t = 96
+r = 40
 
-wb = calcwb(t, r)
+wb = calcwb(t, r, 0, False)
 
 print(f"Web bulb = {wb}")
 
