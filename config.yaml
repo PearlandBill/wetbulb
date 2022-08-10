@@ -1,2 +1,15 @@
 wetbulb:
-  
+
+sensor:
+  platform: wetbulb
+  sensors:
+    inside_temp:
+      entity: abc
+      unit_of_measure: F
+    outside_temp:
+      entity: abc
+      unit_of_measure: F
+    inside_humidity:
+      entity: abc
+    outside_humidity:
+      entity: abc
