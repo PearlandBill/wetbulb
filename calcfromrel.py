@@ -37,9 +37,9 @@ def calcwb(temp: float, rh: int, num_digits: int, is_celsius: bool) -> float:
         wb = (wb * 9/5) + 32
 
     # round wb
-    wbF = round(wb, num_digits)
+    wb = round(wb, num_digits)
 
-    return wbF
+    return wb
 
 t = 96
 r = 40
