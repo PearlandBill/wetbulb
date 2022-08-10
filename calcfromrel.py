@@ -11,8 +11,6 @@
 
 # https://physicscalc.com/physics/wet-bulb-calculator/#:~:text=The%20most%20important%20formula%20to,0.023101%20*%20rh%25)%20%2D%204.686035.
 
-
-
 import math
 
 def calcwb(temp: float, rh: int) -> float:
@@ -30,6 +28,9 @@ def calcwb(temp: float, rh: int) -> float:
 
     #convert wb to farenheit
     wbF = (wb * 9/5) + 32
+
+    # round wbF
+    wbF = round(wbF)
 
     return wbF
 
