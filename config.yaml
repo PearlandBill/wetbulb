@@ -1,15 +1,14 @@
 wetbulb:
+  unit_of_measure: F
+  outdoor_temp_entity: sensor.khou_temperature
+  outdoor_rh_entity: sensor.khou_relative_humidity
+  indoor_temp_entity: sensor.4_in_1_sensor_air_temperature
+  indoor_rh_entity: sensor.4_in_1_sensor_humidity
 
 sensor:
-  platform: wetbulb
-  sensors:
-    inside_temp:
-      entity: abc
-      unit_of_measure: F
-    outside_temp:
-      entity: abc
-      unit_of_measure: F
-    inside_humidity:
-      entity: abc
-    outside_humidity:
-      entity: abc
+  - platform: wetbulb
+    sensors:
+      inside_wet_bulb:
+        friendly_name: Wet Bulb Indoors
+      outside_wet_bulb:
+        friendly_name: Wet Bulb Outdoors

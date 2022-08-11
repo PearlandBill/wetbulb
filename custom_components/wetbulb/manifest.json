@@ -1,0 +1,5 @@
+{
+    "domain": "wetbulb",
+    "name": "wet bulb temperatures",
+    "code_owners": ["bill@billmertz.net"]
+}
