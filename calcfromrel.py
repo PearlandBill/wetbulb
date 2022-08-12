@@ -53,8 +53,11 @@ config = wb_config('F', 'outdoor temp entity name', 'outdoor rh entity name')
 config.unit_of_measure = 'Farneheit'
 config.outdoor_temp_entity = 'xyz'
 config.outdoor_rh_entity = 'abc'
+config.indoor_temp_entity = 'in xyz'
+config.indoor_rh_entity = 'in abc'
 
 print(f"Web bulb = {config}")
 print(wb)
+print(f'Config is valid = {config.is_valid()}')
 
 

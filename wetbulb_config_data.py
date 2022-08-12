@@ -3,11 +3,11 @@ from dataclasses import dataclass
 
 @dataclass
 class wb_config:
-    unit_of_measure: str = ''
-    outdoor_temp_entity: str = ''
-    outdoor_rh_entity: str = ''
-    indoor_temp_entity: str = ''
-    indoor_rh_entity: str = ''
+    unit_of_measure: str = None
+    outdoor_temp_entity: str = None
+    outdoor_rh_entity: str = None
+    indoor_temp_entity: str = None
+    indoor_rh_entity: str = None
 
     def __str__(self):
         return f'''UOM = {self.unit_of_measure}
@@ -16,3 +16,12 @@ class wb_config:
         Intdoor temp entity {self.indoor_temp_entity}
         Intdoor rh entity {self.indoor_rh_entity}'''
 
+    def is_valid(self):
+        if self.unit_of_measure is not None and \
+            self.outdoor_temp_entity is not None and \
+            self.outdoor_rh_entity is not None and \
+            self.indoor_temp_entity is not None and \
+            self.indoor_rh_entity is not None:
+            return True
+        else:
+            return False
