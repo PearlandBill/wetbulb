@@ -12,6 +12,7 @@
 # https://physicscalc.com/physics/wet-bulb-calculator/#:~:text=The%20most%20important%20formula%20to,0.023101%20*%20rh%25)%20%2D%204.686035.
 
 import math
+from wetbulb_config_data import wb_config
 
 def calcwb(temp: float, rh: int, num_digits: int, unit_of_measure: str) -> float:
     #Convert temp to Celsius
@@ -48,5 +49,12 @@ unit_of_measure = 'F'
 
 wb = calcwb(t, r, num_decimals, unit_of_measure)
 
-print(f"Web bulb = {wb}")
+config = wb_config('F', 'outdoor temp entity name', 'outdoor rh entity name')
+config.unit_of_measure = 'Farneheit'
+config.outdoor_temp_entity = 'xyz'
+config.outdoor_rh_entity = 'abc'
+
+print(f"Web bulb = {config}")
+print(wb)
+
 
