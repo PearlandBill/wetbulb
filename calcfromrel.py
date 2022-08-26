@@ -42,17 +42,17 @@ def calcwb(temp: float, rh: int, num_digits: int, unit_of_measure: str) -> float
 
     return wb
 
-t = 77
-r = 88
-num_decimals = 2
+t = 89
+r = 59
+num_decimals = 0
 unit_of_measure = 'F'
 
 wb = calcwb(t, r, num_decimals, unit_of_measure)
 
 config = wb_config('F', 'outdoor temp entity name', 'outdoor rh entity name')
-config.unit_of_measure = 'Farneheit'
-config.outdoor_temp_entity = 'xyz'
-config.outdoor_rh_entity = 'abc'
+config.unit_of_measure = unit_of_measure
+config.outdoor_temp_entity = t
+config.outdoor_rh_entity = r
 config.indoor_temp_entity = 'in xyz'
 config.indoor_rh_entity = 'in abc'
 
