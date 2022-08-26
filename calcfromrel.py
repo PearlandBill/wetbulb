@@ -49,7 +49,7 @@ unit_of_measure = 'F'
 
 wb = calcwb(t, r, num_decimals, unit_of_measure)
 
-config = wb_config('F', 'outdoor temp entity name', 'outdoor rh entity name')
+config = wb_config()
 config.unit_of_measure = unit_of_measure
 config.outdoor_temp_entity = t
 config.outdoor_rh_entity = r
