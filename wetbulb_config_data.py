@@ -16,6 +16,12 @@ class wb_config:
         Intdoor temp entity {self.indoor_temp_entity}
         Intdoor rh entity {self.indoor_rh_entity}'''
 
+    def __repr__(self):
+        return (f'{self.__class__.__name__}('
+                f'{self.unit_of_measure}, {self.outdoor_temp_entity}, '
+                f'{self.outdoor_rh_entity}, {self.indoor_temp_entity}, '
+                f'{self.indoor_rh_entity}')
+
     def is_valid(self):
         if self.unit_of_measure is not None and \
             self.outdoor_temp_entity is not None and \

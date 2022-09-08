@@ -42,9 +42,9 @@ def calcwb(temp: float, rh: int, num_digits: int, unit_of_measure: str) -> float
 
     return wb
 
-t = 77
-r = 88
-num_decimals = 2
+t = 86
+r = 61
+num_decimals = 0
 unit_of_measure = 'F'
 
 wb = calcwb(t, r, num_decimals, unit_of_measure)
@@ -59,5 +59,6 @@ config.indoor_rh_entity = 'in abc'
 print(f"Web bulb = {config}")
 print(wb)
 print(f'Config is valid = {config.is_valid()}')
+print(repr(config))
 
 
