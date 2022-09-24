@@ -1,5 +1,7 @@
 {
     "domain": "wetbulb",
     "name": "wet bulb temperatures",
-    "code_owners": ["bill@billmertz.net"]
+    "code_owners": ["bill@billmertz.net"],
+    "version": "1.0.0",
+    "config_flow": false
 }
