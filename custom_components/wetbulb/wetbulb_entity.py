@@ -4,6 +4,7 @@ import homeassistant.helpers.config_validation as cv
 import voluptuous as vol
 from homeassistant.components.sensor import SensorEntity
 from . import calculator
+import logging
 
 DOMAIN = 'wetbulb'
 
@@ -44,25 +45,43 @@ class WetBulbEntity(SensorEntity):
         return self.wetbulb_entity
 
     def update(self):
+        # Log that update is happening
+        _LOGGER = logging.getLogger(__name__)
+        _LOGGER.error("wetbulb_entity update has been called.")
+
         #get the temperature
-        temp_str = self.hass.states.get(self.temp_entity)
-        rh_str = self.hass.states.get(self.rh_entity)
+        temp_entity = self.hass.states.get(self.temp_entity)
+        rh_entity = self.hass.states.get(self.rh_entity)
+        #_LOGGER.error("temp_entity = " + self.temp_entity + ".")
+        _LOGGER.error(repr(temp_entity))
+
+        temp_val = temp_entity.state
+        _LOGGER.error("temp_val  " + temp_val)
+
+        rh_val = rh_entity.state
+        _LOGGER.error("rh_val = " + rh_val)
 
         temp = 0
         rh = 0
 
         # Validate values
         try:
-            temp = float(temp_str)
-            rh = int(rh_str)
+            temp = float(temp_val)
+            rh = int(rh_val)
         except:
             return False
 
         # find wet bulb
+        _LOGGER.error("Calculating wb.")
+        _LOGGER.error("temp = " + str(temp))
+        _LOGGER.error("rh = " + str(rh))
         wb = calculator.calcwb(temp, rh, 2, 'F')
+        _LOGGER.error("wb = " + str(wb))
 
         # set state
-        self.hass.states.set(self.wetbulb_entity, wb)
+        self.hass.states.set(self.wetbulb_entity, str(wb))
+        _LOGGER.error(repr(self.wetbulb_entity))
+        _LOGGER.error("wb state has been set")
 
         return True
 
