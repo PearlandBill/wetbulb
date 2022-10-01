@@ -7,7 +7,7 @@ def calcwb(temp: float, rh: int, num_digits: int, unit_of_measure: str) -> float
     tempC = temp
 
     # check for celsius
-    if unit_of_measure == 'F':
+    if unit_of_measure == 'F' or unit_of_measure == 'f':
         tempC = (temp - 32) * 5/9
 
     #Calc wet bulb
@@ -20,7 +20,7 @@ def calcwb(temp: float, rh: int, num_digits: int, unit_of_measure: str) -> float
     wb = tempC * atan1 + atan2 - atan3 + factor1 * atan4 - 4.686035
 
     #convert wb to farenheit?
-    if unit_of_measure == 'F':
+    if unit_of_measure == 'F' or unit_of_measure == 'f':
         wb = (wb * 9/5) + 32
 
     # round wb
