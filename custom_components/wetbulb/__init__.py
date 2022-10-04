@@ -12,20 +12,13 @@ _LOGGER = logging.getLogger(__name__)
 
 DOMAIN = 'wetbulb'
 CONF_UOM = 'unit_of_measure'
-CONF_OUTDOOR_TEMP_ENTITY = 'outdoor_temp_entity'
-CONF_INDOOR_TEMP_ENTITY = 'indoor_temp_entity'
-CONF_OUTDOOR_RH_ENTITY = 'outdoor_rh_entity'
-CONF_INDOOR_RH_ENTITY = 'indoor_rh_entity'
-
-wbconfig = wetbulb_config.wb_config()
+CONF_DIGITS = 'number_of_digits'
 
 def setup(hass, config):
     conf = config[DOMAIN]
+    wbconfig = wetbulb_config.wb_config()
     wbconfig.unit_of_measure = conf[CONF_UOM]
-    wbconfig.outdoor_temp_entity = conf[CONF_OUTDOOR_TEMP_ENTITY]
-    wbconfig.indoor_temp_entity = conf[CONF_INDOOR_TEMP_ENTITY]    
-    wbconfig.outdoor_rh_entity = conf[CONF_OUTDOOR_RH_ENTITY]
-    wbconfig.indoor_rh_entity = conf[CONF_INDOOR_RH_ENTITY] 
+    wbconfig.number_of_digits = conf[CONF_DIGITS]
 
     #def cleanup(event):
     #    conf.cleanup()

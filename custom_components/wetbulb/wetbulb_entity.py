@@ -9,12 +9,13 @@ import logging
 DOMAIN = 'wetbulb'
 
 class WetBulbEntity(SensorEntity):
-    def __init__(self, hass, name, temp_entity, rh_entity, wetbulb_entity):
+    def __init__(self, hass, name, temp_entity, rh_entity, wetbulb_entity, config):
         self.hass = hass
         self._name = name
         self.temp_entity = temp_entity
         self.rh_entity = rh_entity
         self.wetbulb_entity = wetbulb_entity
+        self.config = config
 
     @property
     def should_poll(self):
@@ -47,42 +48,27 @@ class WetBulbEntity(SensorEntity):
     def update(self):
         # Log that update is happening
         _LOGGER = logging.getLogger(__name__)
-        _LOGGER.error("wetbulb_entity update has been called.")
 
         #get the temperature
         temp_entity = self.hass.states.get(self.temp_entity)
         rh_entity = self.hass.states.get(self.rh_entity)
-        #_LOGGER.error("temp_entity = " + self.temp_entity + ".")
-        _LOGGER.error(repr(temp_entity))
-
-        temp_val = temp_entity.state
-        _LOGGER.error("temp_val  " + temp_val)
-
-        rh_val = rh_entity.state
-        _LOGGER.error("rh_val = " + rh_val)
-
-        temp = 0
-        rh = 0
 
         # Validate values
         try:
-            temp = float(temp_val)
-            rh = int(rh_val)
-        except:
+            temp = float(temp_entity.state)
+            rh = int(rh_entity.state)
+
+            # find wet bulb
+            wb = calculator.calcwb(temp, rh, self.config.number_of_digits, self.config.unit_of_measure)
+
+            # set state
+            self.hass.states.set(self.wetbulb_entity, str(wb))
+            _LOGGER.info("wb state for " + self.wb_entity_name + " has been set")
+
+            return True
+        except Exception as e:
+            _LOGGER.error("Error updating the web bulb temperature")
+            _LOGGER.error(e)
             return False
-
-        # find wet bulb
-        _LOGGER.error("Calculating wb.")
-        _LOGGER.error("temp = " + str(temp))
-        _LOGGER.error("rh = " + str(rh))
-        wb = calculator.calcwb(temp, rh, 2, 'F')
-        _LOGGER.error("wb = " + str(wb))
-
-        # set state
-        self.hass.states.set(self.wetbulb_entity, str(wb))
-        _LOGGER.error(repr(self.wetbulb_entity))
-        _LOGGER.error("wb state has been set")
-
-        return True
 
     
