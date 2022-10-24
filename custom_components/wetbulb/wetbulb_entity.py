@@ -1,6 +1,8 @@
 ''' Wetbulb entity class'''
 from __future__ import annotations
 
+from pyparsing import replace_html_entity
+
 from homeassistant.components.sensor import (
     SensorDeviceClass,
     SensorEntity,
@@ -35,41 +37,15 @@ class WetBulbEntity(SensorEntity):
     _attr_native_unit_of_measurement = TEMP_FAHRENHEIT
     _attr_device_class = SensorDeviceClass.TEMPERATURE
     _attr_state_class = SensorStateClass.MEASUREMENT
+    
 
-    def __init__(self, hass, wb_config):
-        
-        #https://developers.home-assistant.io/docs/device_registry_index/#defining-devices
-#        _attr_unique_id = wb_config.unique_id
+    def __init__(self, hass, wb_config, temp_entity, rh_entity, num_digits):
 
-#        _attr_has_entity_name = True
-
-        #https://developers.home-assistant.io/docs/core/entity/sensor
-#        device_class = DEVICE_CLASS_TEMPERATURE
-#        native_value = int
-
-        #error with below
-        #self.name = wb_config.name  # did not change unnamed entity
-        #self.name error = /home/bill/github/home-assistant/core/config/.storage/input_datetime'
-
- #       entity_description = WebBulbEntityDescription(
- #           device_class = SensorDeviceClass.TEMPERATURE,
- #           last_reset = datetime.now,
- #           native_unit_of_measurement = TEMP_FAHRENHEIT,
- #           state_class = SensorStateClass.MEASUREMENT,
- #           unit_of_measure = None
- #       )
-
-        
-
-        # Make entity id
-        entityId = "sensor." + wb_config.name
-        entityId = entityId.replace(" ", "_")
-        entityId = entityId.lower()
-
- #       entity_id = entityId
+        self.temp_entity = temp_entity
+        self.rh_entity = rh_entity
+        self.num_digits = num_digits
 
         self.wb_config = wb_config
-        self.wb_config.wetbulb_entity = entityId
         self.hass = hass
 
     #https://developers.home-assistant.io/docs/device_registry_index/#defining-devices
@@ -87,23 +63,22 @@ class WetBulbEntity(SensorEntity):
         # Log that update is happening
         _LOGGER = logging.getLogger(__name__)
 
-        #get the temperature
-        temp_entity = self.hass.states.get(self.wb_config.temp_sensor)
-        rh_entity = self.hass.states.get(self.wb_config.rh_sensor)
+        #get the temperature and rh entities
+        temp_entity = self.hass.states.get(self.temp_entity)
+        rh_entity = self.hass.states.get(self.rh_entity)
 
         # Validate values
         try:
+            #get temp and rh values
             temp = float(temp_entity.state)
             rh = int(rh_entity.state)
 
             # find wet bulb
-            wb = calculator.calcwb(temp, rh, self.wb_config.number_of_digits, 'F')
+            wb = calculator.calcwb(temp, rh, self.num_digits, 'F')
 
             # set state
-            #self.hass.states.set(self.wetbulb_entity, wb)
             self._attr_native_value = wb
-            #self.schedule_update_ha_state(True)
-            _LOGGER.info("wb state for " + self.wb_config.wetbulb_entity + " has been set")
+            _LOGGER.info(f"Wet bulb state for {self._attr_name} has been set")
 
             return True
         except Exception as e:
