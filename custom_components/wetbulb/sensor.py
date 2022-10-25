@@ -1,16 +1,14 @@
-from numpy import number
 from . import wetbulb_entity
 import logging
 import voluptuous as vol
 import homeassistant.helpers.config_validation as cv
-from homeassistant.components.sensor import SensorEntity, PLATFORM_SCHEMA
-from homeassistant.const import CONF_NAME, CONF_SENSORS
+from homeassistant.components.sensor import PLATFORM_SCHEMA
+from homeassistant.const import CONF_SENSORS
 
-_LOGGER = logging.getLogger(__name__)
 DOMAIN = 'wetbulb'
 CONF_TEMP_ENTITY = "temp_sensor"
 CONF_RH_ENTITY = "rh_sensor"
-CONF_NUM_DIGITS = "number_of_digits"
+CONF_NUM_DIGITS = "number_of_decimals"
 
 SENSOR_SCHEMA = vol.Schema(
     {
@@ -38,6 +36,7 @@ def setup_platform(hass, config, add_entities, discovery_info=None):
             properties.get(CONF_NUM_DIGITS)[0]
             )
         wb._attr_name = dev_name
+        
         devices.append(wb)
     
     add_entities(devices)

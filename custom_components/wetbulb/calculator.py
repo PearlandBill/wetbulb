@@ -1,6 +1,6 @@
 import math
 
-def calcwb(temp: float, rh: int, num_digits: int, unit_of_measure: str) -> float:
+def calcwb(temp: float, rh: int, unit_of_measure: str) -> float:
     #Convert temp to Celsius
 
     # assume that the temp is in celsius
@@ -22,8 +22,5 @@ def calcwb(temp: float, rh: int, num_digits: int, unit_of_measure: str) -> float
     #convert wb to farenheit?
     if unit_of_measure == 'F' or unit_of_measure == 'f':
         wb = (wb * 9/5) + 32
-
-    # round wb
-    wb = round(wb, num_digits)
 
     return wb
