@@ -39,13 +39,12 @@ class WetBulbEntity(SensorEntity):
     _attr_state_class = SensorStateClass.MEASUREMENT
     
 
-    def __init__(self, hass, wb_config, temp_entity, rh_entity, num_digits):
+    def __init__(self, hass, temp_entity, rh_entity, num_digits):
 
         self.temp_entity = temp_entity
         self.rh_entity = rh_entity
         self.num_digits = num_digits
 
-        self.wb_config = wb_config
         self.hass = hass
 
     #https://developers.home-assistant.io/docs/device_registry_index/#defining-devices

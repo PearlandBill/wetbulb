@@ -17,12 +17,6 @@ DOMAIN = 'wetbulb'
 def setup(hass: HomeAssistant, config: ConfigType) -> bool:
     conf = config[DOMAIN]
 
-    wbconfig = wetbulb_config.wb_config()
-    wbconfig.domain = DOMAIN
-    wbconfig.name = conf.get(CONF_NAME)
-
-    hass.data[DOMAIN] = wbconfig       
-
     return True 
   
 

@@ -29,8 +29,6 @@ PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend(
 
 def setup_platform(hass, config, add_entities, discovery_info=None):
     #Get the config data
-    wb_config = hass.data[DOMAIN]
-
     sensors = config.get(CONF_SENSORS)
 
     #_LOGGER.error("setting up platform")
@@ -38,7 +36,6 @@ def setup_platform(hass, config, add_entities, discovery_info=None):
 
     for dev_name, properties in sensors.items():
         wb = wetbulb_entity.WetBulbEntity(hass, 
-            wb_config,
             properties.get(CONF_TEMP_ENTITY)[0],
             properties.get(CONF_RH_ENTITY)[0],
             properties.get(CONF_NUM_DIGITS)[0]
