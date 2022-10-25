@@ -26,14 +26,11 @@ PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend(
 	}
 )
 
-
 def setup_platform(hass, config, add_entities, discovery_info=None):
     #Get the config data
     sensors = config.get(CONF_SENSORS)
 
-    #_LOGGER.error("setting up platform")
     devices = []
-
     for dev_name, properties in sensors.items():
         wb = wetbulb_entity.WetBulbEntity(hass, 
             properties.get(CONF_TEMP_ENTITY)[0],
@@ -42,11 +39,6 @@ def setup_platform(hass, config, add_entities, discovery_info=None):
             )
         wb._attr_name = dev_name
         devices.append(wb)
-
-    #wb = wetbulb_entity.WetBulbEntity(hass, wb_config)
-    #wb._attr_name = wb_config.name
-
-    #devices.append(wb)
     
     add_entities(devices)
 

@@ -14,21 +14,8 @@ from homeassistant.helpers.entity_platform import AddEntitiesCallback
 from homeassistant.helpers.typing import ConfigType, DiscoveryInfoType
 #from homeassistant.components.sensor import SensorEntity
 from . import calculator
-from . import wetbulb_config
 import logging
 from datetime import date, datetime, timedelta, timezone
-
-DOMAIN = 'wetbulb'
-
-#class WebBulbEntityDescription(SensorEntityDescription):
-#    '''A class for defining the web bulb sensor entity description'''
-#
-#    device_class: SensorDeviceClass | str | None = None
-#    last_reset: datetime | None = None
-#    native_unit_of_measurement: str | None = None
-#    state_class: SensorStateClass | str | None = None
-#    unit_of_measurement: None = None  # Type override, use native_unit_of_measurement
-
 
 class WetBulbEntity(SensorEntity):
     """Representation of a Sensor."""
