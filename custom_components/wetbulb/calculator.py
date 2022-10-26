@@ -2,12 +2,10 @@ import math
 from homeassistant.const import TEMP_FAHRENHEIT
 
 def calcwb(temp: float, rh: int, unit_of_measure: str) -> float:
-    #Convert temp to Celsius
-
     # assume that the temp is in celsius
     tempC = temp
 
-    # check for celsius
+    # check for fahrenheit
     if unit_of_measure == TEMP_FAHRENHEIT:
         tempC = (temp - 32) * 5/9
 
