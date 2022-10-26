@@ -43,11 +43,7 @@ class WetBulbEntity(SensorEntity):
         temp_entity = self.hass.states.get(self.temp_entity)
         rh_entity = self.hass.states.get(self.rh_entity)
 
-        attr_uom = temp_entity.attributes['unit_of_measurement']
-
-        uom = 'C'
-        if attr_uom == '°F':
-            uom = 'F'
+        uom = temp_entity.attributes['unit_of_measurement']
 
         # Validate values
         try:
