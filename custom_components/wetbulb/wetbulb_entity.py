@@ -48,6 +48,8 @@ class WetBulbEntity(SensorEntity):
         # Validate values
         try:
             #get temp and rh values
+            _LOGGER.error("Converting temp and rh to float and integer")
+            _LOGGER.error(f"Original values: temp = {temp_entity.state} and rh = {rh_entity.state}.")
             temp = float(temp_entity.state)
             rh = int(rh_entity.state)
 
