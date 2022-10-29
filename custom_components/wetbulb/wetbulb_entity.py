@@ -59,6 +59,7 @@ class WetBulbEntity(SensorEntity):
 
             temp = float(temp_entity.state)
             rh = float(rh_entity.state)
+            #config flow branch test
 
             # find wet bulb
             wb = calculator.calcwb(temp, rh, uom)
