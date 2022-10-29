@@ -48,7 +48,6 @@ class WetBulbEntity(SensorEntity):
         #get the temperature and rh entities
         temp_entity = self.hass.states.get(self.temp_entity)
         rh_entity = self.hass.states.get(self.rh_entity)
-        #github test
 
         uom = temp_entity.attributes['unit_of_measurement']
 
