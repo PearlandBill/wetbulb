@@ -1,7 +1,7 @@
 import math
 from homeassistant.const import TEMP_FAHRENHEIT
 
-def calcwb(temp: float, rh: int, unit_of_measure: str) -> float:
+def calcwb(temp: float, rh: float, unit_of_measure: str) -> float:
     # assume that the temp is in celsius
     tempC = temp
 

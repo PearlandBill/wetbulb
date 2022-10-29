@@ -9,12 +9,14 @@ DOMAIN = 'wetbulb'
 CONF_TEMP_ENTITY = "temp_sensor"
 CONF_RH_ENTITY = "rh_sensor"
 CONF_NUM_DIGITS = "number_of_decimals"
+CONF_UNIQUE_ID = "unique_id"
 
 SENSOR_SCHEMA = vol.Schema(
     {
         vol.Required(CONF_TEMP_ENTITY): vol.All(cv.ensure_list_csv, [cv.string]),
         vol.Required(CONF_RH_ENTITY): vol.All(cv.ensure_list_csv, [cv.string]),
-        vol.Required(CONF_NUM_DIGITS): vol.All(cv.ensure_list_csv, [cv.positive_int])
+        vol.Required(CONF_NUM_DIGITS): vol.All(cv.ensure_list_csv, [cv.positive_int]),
+        vol.Required(CONF_UNIQUE_ID): vol.All(cv.ensure_list_csv, [cv.string])
     }
 )
 
@@ -33,7 +35,8 @@ def setup_platform(hass, config, add_entities, discovery_info=None):
         wb = wetbulb_entity.WetBulbEntity(hass, 
             properties.get(CONF_TEMP_ENTITY)[0],
             properties.get(CONF_RH_ENTITY)[0],
-            properties.get(CONF_NUM_DIGITS)[0]
+            properties.get(CONF_NUM_DIGITS)[0],
+            properties.get(CONF_UNIQUE_ID)[0]
             )
         wb._attr_name = dev_name
         

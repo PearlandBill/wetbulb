@@ -1,5 +1,6 @@
 ''' Wetbulb entity class'''
 from __future__ import annotations
+from enum import unique
 from pyparsing import replace_html_entity
 from homeassistant.components.sensor import (
     SensorDeviceClass,
@@ -18,11 +19,12 @@ class WetBulbEntity(SensorEntity):
     _attr_device_class = SensorDeviceClass.TEMPERATURE
     _attr_state_class = SensorStateClass.MEASUREMENT
     
-    def __init__(self, hass, temp_entity, rh_entity, num_digits):
+    def __init__(self, hass, temp_entity, rh_entity, num_digits, unique_id):
 
         self.temp_entity = temp_entity
         self.rh_entity = rh_entity
         self.num_digits = num_digits
+        self._unique_id = unique_id
         self.hass = hass
 
     @property
@@ -30,6 +32,10 @@ class WetBulbEntity(SensorEntity):
         return {
             "name": self.name,
         }
+    
+    @property
+    def unique_id(self) -> str:
+        return "wb_" + self._unique_id
 
     @property
     def should_poll(self):
@@ -48,10 +54,11 @@ class WetBulbEntity(SensorEntity):
         # Validate values
         try:
             #get temp and rh values
-            _LOGGER.error("Converting temp and rh to float and integer")
-            _LOGGER.error(f"Original values: temp = {temp_entity.state} and rh = {rh_entity.state}.")
+            _LOGGER.info("Converting temp and rh to floats")
+            _LOGGER.info(f"Original values: temp = {temp_entity.state} and rh = {rh_entity.state}.")
+
             temp = float(temp_entity.state)
-            rh = int(rh_entity.state)
+            rh = float(rh_entity.state)
 
             # find wet bulb
             wb = calculator.calcwb(temp, rh, uom)
