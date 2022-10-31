@@ -33,9 +33,9 @@ class WetBulbEntity(SensorEntity):
             "name": self.name,
         }
     
-    @property
-    def unique_id(self) -> str:
-        return "wb_" + self._unique_id
+    #@property
+    #def unique_id(self) -> str:
+    #    return "wb_" + self._unique_id
 
     @property
     def should_poll(self):
@@ -59,7 +59,6 @@ class WetBulbEntity(SensorEntity):
 
             temp = float(temp_entity.state)
             rh = float(rh_entity.state)
-            #config flow branch test
 
             # find wet bulb
             wb = calculator.calcwb(temp, rh, uom)
