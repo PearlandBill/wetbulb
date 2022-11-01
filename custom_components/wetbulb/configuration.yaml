@@ -1,0 +1,37 @@
+
+# Loads default set of integrations. Do not remove.
+default_config:
+
+# Text to speech
+tts:
+  - platform: google_translate
+
+automation: !include automations.yaml
+script: !include scripts.yaml
+scene: !include scenes.yaml
+
+logger:
+  default: info
+  logs:
+    homeassistant.components.cloud: debug
+
+sensor:
+  - platform: wetbulb
+    sensors:
+      "Wet Bulb Outdoors":
+        temp_sensor: "sensor.khou_temperature"
+        rh_sensor: "sensor.khou_relative_humidity"
+        number_of_decimals: 3
+        unique_id: "wb_oct272022_1"
+      "Wet Bulb Indoors":
+        temp_sensor: "sensor.khou_temperature"
+        rh_sensor: "sensor.khou_relative_humidity"
+        number_of_decimals: 0
+        unique_id: "wb_oct272022_2"
+  - platform: example_sensor
+
+
+
+#debugpy:
+#  start: true
+#  wait: true
