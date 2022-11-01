@@ -50,10 +50,8 @@ class WetBulbConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
             if not errors:
                 self.data = user_input
 
-                if user_input.get("add_another", False):
-                    return await self.async_step_init
-            
-            return await self.async_create_entry(title="WetBulb Custom", data=self.data)
+            # User is done adding repos, create the config entry.
+            return self.async_create_entry(title="Wet Bulb", data=self.data)
 
         return self.async_show_form(
             step_id = "user", data_schema=SENSOR_SCHEMA, errors=errors
